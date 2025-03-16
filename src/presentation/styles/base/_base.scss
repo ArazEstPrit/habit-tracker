@@ -1,0 +1,153 @@
+@use "typography" as *;
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+body {
+	background-color: var(--background);
+}
+
+#root {
+	height: 100vh;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	overflow: hidden;
+}
+
+.main {
+	@include subtle-scrollbar();
+	width: 100%;
+	max-height: 100%;
+	overflow: auto;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding: 3rem;
+}
+
+body {
+	transition: 100ms ease-out;
+}
+
+* {
+	:hover,
+	:focus-visible {
+		transition-duration: 70ms;
+	}
+
+	:active {
+		transition-duration: 20ms;
+	}
+}
+
+a {
+	text-decoration: none var(--primary);
+
+	color: inherit;
+
+	&:hover {
+		text-decoration: underline var(--primary);
+	}
+}
+
+body {
+	color: var(--foreground);
+}
+
+*::selection {
+	background-color: var(--selection);
+
+	[data-theme="dark"] & {
+		color: $black;
+	}
+}
+
+.icon {
+	min-width: 32px;
+
+	aspect-ratio: 1;
+
+	overflow: visible;
+
+	use.light {
+		--stroke: #{$black};
+		--fill: none;
+	}
+
+	use.dark {
+		--stroke: #{$black};
+		--fill: #{transparentize($g600, 0.1)};
+	}
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-align: center;
+	}
+}
+
+a,
+button {
+	&:hover .icon use {
+		--stroke: var(--primary);
+	}
+}
+
+html {
+	.icon use.dark {
+		display: none;
+	}
+
+	.icon use.light {
+		display: initial;
+	}
+}
+
+html[data-theme="dark"] {
+	.icon use.dark {
+		display: initial;
+	}
+
+	.icon use.light {
+		display: none;
+	}
+}
+
+// Shared input styles
+input,
+textarea,
+select {
+	background: none;
+	outline: none;
+	border: none;
+	color: var(--foreground);
+
+	&::placeholder {
+		color: var(--muted-foreground);
+		opacity: 0.7;
+	}
+
+	option {
+		color: $black;
+	}
+}
+
+input[type="number"] {
+	@extend .h6;
+	&::-webkit-inner-spin-button {
+		display: none;
+	}
+}

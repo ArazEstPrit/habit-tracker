@@ -1,0 +1,7 @@
+node_modules/**
+.vscode/**
+data/**
+dist/**
+uml/**
+
+.DS_Store

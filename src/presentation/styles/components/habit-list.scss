@@ -1,0 +1,68 @@
+@use "../base/typography";
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+.habit-list-container {
+	display: flex;
+	margin-top: 1em;
+	justify-content: center;
+	overflow: visible;
+	position: relative;
+	gap: 1rem;
+
+	.no-habits {
+		color: var(--muted-foreground);
+		font-style: italic;
+	}
+
+	&:not(:has(.habit-list-item)) {
+		gap: 0;
+
+		.habit-list {
+			width: 0;
+		}
+
+		.add-habit-button-container {
+			order: 1;
+
+			bottom: -25px;
+			right: -25px;
+		}
+		.habit-side-panel-container {
+			align-items: center;
+			.habit-side-panel {
+				order: 2;
+
+				transform: translateY(0);
+
+				&.closed {
+					transform: translateY(-20px);
+				}
+
+				top: 0;
+
+				// &.type-standard .bottom {
+				.bottom {
+					justify-content: center;
+
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+.habit-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	position: relative;
+	width: 600px;
+
+	hr {
+		border-color: rgb(from var(--muted-foreground) r g b / 0.5);
+		border-width: 3px;
+		width: 90%;
+	}
+}

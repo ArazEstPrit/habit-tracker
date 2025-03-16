@@ -1,0 +1,36 @@
+@use "../utils/vars" as *;
+@use "sass:math";
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
+body,
+* {
+	font-family: $font-family;
+	font-style: normal;
+
+	font-weight: $font-weight;
+	line-height: $line-height;
+	font-size: $font-size;
+}
+
+$tags: (
+	"h1": 6,
+	"h2": 5,
+	"h3": 4,
+	"h4": 3,
+	"h5": 2,
+	"h6": 1,
+	"small": -1,
+);
+
+@each $tag, $index in $tags {
+	#{$tag},
+	.#{$tag} {
+		font-weight: $font-weight + $index * 50;
+		font-size: ($font-size * math.pow($font-ratio, $index));
+	}
+}
+
+small,
+.small {
+	opacity: 0.75;
+}

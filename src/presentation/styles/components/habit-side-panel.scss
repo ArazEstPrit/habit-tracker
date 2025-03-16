@@ -1,0 +1,286 @@
+@use "../base/typography";
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+.habit-side-panel-container {
+	position: relative;
+	width: 0;
+	transition: 0.2s ease-in-out;
+	overflow: visible;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	gap: 1rem;
+
+	&:has(.open) {
+		width: 100px;
+	}
+
+	.add-habit-button {
+		z-index: 10;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: var(--muted-background);
+		border: 2px dashed var(--primary);
+		cursor: pointer;
+		transition: 0.2s ease-in-out;
+
+		display: flex;
+		align-items: center;
+
+		use {
+			--stroke: var(--primary);
+		}
+	}
+}
+
+.habit-side-panel {
+	@include dashed-background(var(--color), 0.1, 0.05);
+	@include colors();
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 350px;
+	border-radius: 10px;
+	padding: 5px;
+	border: solid 1px var(--color);
+	background-color: rgb(from var(--color) r g b / 0.1);
+	transition: 0.2s ease-in-out;
+
+	z-index: 99;
+
+	opacity: 1;
+
+	--top: 0px;
+
+	&.type-standard {
+		--h: 260px;
+	}
+
+	&.type-gradual {
+		--h: 260px;
+	}
+
+	&.type-study {
+		--h: 420px;
+	}
+
+	top: min(var(--top), calc(100% - 60px - var(--h)));
+
+	--color: #{$g200};
+
+	&::before {
+		animation-play-state: running;
+	}
+
+	&.closed {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.row {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.name {
+		@extend .h3;
+		flex-grow: 1;
+		width: 1%;
+	}
+
+	.color {
+		width: 30px;
+		display: flex;
+		justify-content: center;
+		overflow: visible;
+
+		z-index: 3;
+
+		cursor: pointer;
+
+		position: relative;
+
+		aspect-ratio: 1;
+
+		border: none;
+
+		border-radius: 15px;
+
+		background-color: var(--color);
+
+		&.open {
+			background-color: var(--muted-background);
+		}
+
+		&:not(.open) .color-popup {
+			display: none;
+		}
+	}
+
+	.color-popup {
+		@include subtle-scrollbar();
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap-reverse;
+		background-color: var(--muted-background);
+		border-radius: 15px;
+		left: -40px;
+		top: -5px;
+		height: 145px;
+		width: 75px;
+		padding: 5px;
+		gap: 5px;
+		position: absolute;
+
+		* {
+			@include colors();
+			@extend .color;
+		}
+	}
+
+	.description {
+		border: solid 1px rgb(from var(--color) r g b / 0.3);
+		border-radius: 10px;
+		padding: 0.5rem;
+		min-height: 80px;
+
+		resize: none;
+	}
+
+	.days {
+		justify-content: space-between;
+	}
+
+	.day-button {
+		@extend .h6;
+
+		cursor: pointer;
+
+		width: 40px;
+		height: 40px;
+		border-radius: 10px;
+		border: solid 1px var(--color);
+		background: none;
+		color: var(--foreground);
+
+		&:hover {
+			background-color: rgb(from var(--color) r g b / 0.1);
+		}
+
+		&.active {
+			background-color: rgb(from var(--color) r g b / 0.8);
+			color: $black;
+
+			&:hover {
+				background-color: rgb(from var(--color) r g b / 0.6);
+			}
+		}
+	}
+
+	.time-container,
+	.goal-container,
+	.duration-container {
+		display: flex;
+		flex: 1;
+		width: 1px;
+		gap: 0.5rem;
+		align-items: center;
+	}
+	.duration-container {
+		width: 100%;
+	}
+
+	.time {
+		@extend .h6;
+		background: none;
+		outline: none;
+		border: none;
+		color: var(--foreground);
+
+		&::-webkit-calendar-picker-indicator {
+			display: none;
+		}
+
+		&::-webkit-datetime-edit-text {
+			color: var(--foreground);
+			opacity: 0.7;
+		}
+	}
+
+	.study-mode-selector {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.mode-switcher {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.mode-btn {
+		@extend .day-button;
+
+		width: initial;
+		height: initial;
+		flex: 1;
+	}
+
+	.dynamic-description {
+		@extend .small;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		height: 42px;
+	}
+
+	.row:has(.topic-typeahead) {
+		height: 42px;
+	}
+
+	.duration-container {
+		input {
+			width: 60px;
+			margin-right: 0.5rem;
+		}
+		span {
+			color: var(--muted-foreground);
+		}
+	}
+
+	.type {
+		@extend .h6;
+		color: var(--foreground);
+		background: none;
+		outline: none;
+		border: none;
+
+		option {
+			color: $black;
+		}
+	}
+
+	.bottom {
+		display: flex;
+		position: absolute;
+		bottom: -56px;
+		right: 0;
+		justify-content: flex-end;
+
+		button {
+			cursor: pointer;
+			width: 50px;
+			height: 50px;
+			background: none;
+			outline: none;
+			border: none;
+		}
+	}
+}

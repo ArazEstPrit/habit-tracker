@@ -1,0 +1,144 @@
+@use "sass:color";
+@use "sass:list";
+
+/* Font stuff */
+
+$font-family: "Lexend Deca", sans-serif;
+$font-size: 16px;
+$font-weight: 500;
+$line-height: 1.5;
+$font-ratio: 1.25;
+
+/* Aesthetics */
+
+$border-width: 1px;
+
+/* Colors */
+
+$white: #f4f4f4;
+$black: #171716;
+
+$g600: #d5d5d4;
+$g500: #b6b6b3;
+$g400: #979793;
+$g300: #787873;
+$g200: #585854;
+$g100: #383835;
+
+$red: #f35451;
+$orange: #f6aa54;
+$yellow: #fbd443;
+$green: #5bd76f;
+$blue: #47b0fb;
+$indigo: #4f7ff1;
+$purple: #ab64f1;
+$pink: #e161f6;
+
+$light-brand1: #4f5be1;
+$light-brand2: #5793e9;
+$light-accent1: #ec7e4c;
+$light-accent2: #ebc958;
+
+$dark-brand1: #424dc2;
+$dark-brand2: #4277c2;
+$dark-accent1: #d36734;
+$dark-accent2: #d1a642;
+
+$radius-: 8px;
+$spacing-unit: 8px;
+$spacing-sm: $spacing-unit;
+$spacing-md: $spacing-unit * 2;
+$spacing-lg: $spacing-unit * 3;
+$transition-duration: 0.3s;
+$opacity-disabled: 0.5;
+
+html {
+	--primary: #{$light-brand1};
+	--primary-light: #{lighten($light-brand1, 20%)};
+	--primary-dark: #{darken($light-brand1, 20%)};
+	--primary-transparent: #{transparentize($light-brand1, 0.7)};
+
+	--accent: #{$light-accent1};
+	--accent-light: #{lighten($light-accent1, 20%)};
+	--accent-dark: #{darken($light-accent1, 20%)};
+	--accent-transparent: #{transparentize($light-accent1, 0.7)};
+
+	--background: #{$white};
+	--foreground: #{$black};
+	--muted-background: #{transparentize($g600, 0.7)};
+	--muted-foreground: #{$g500};
+	--border: #{$g300};
+
+	--success: #{$green};
+	--warning: #{$yellow};
+	--error: #{$red};
+	--info: #{$blue};
+
+	--button-bg: #{$light-brand1};
+	--button-text: #{$white};
+	--button-hover-bg: #{lighten($light-brand1, 10%)};
+	--button-hover-text: #{$white};
+
+	--link: #{$blue};
+	--link-hover: #{darken($blue, 10%)};
+	--selection: #{$light-accent2};
+
+	--shadow: #{rgba($black, 0.2)};
+	--focus-ring: #{$indigo};
+
+	--red: #{$red};
+	--orange: #{$orange};
+	--yellow: #{$yellow};
+	--green: #{$green};
+	--blue: #{$blue};
+	--indigo: #{$indigo};
+	--purple: #{$purple};
+	--pink: #{$pink};
+}
+
+html[data-theme="dark"] {
+	--primary: #{$dark-brand1};
+	--primary-light: #{lighten($dark-brand1, 20%)};
+	--primary-dark: #{darken($dark-brand1, 20%)};
+	--primary-transparent: #{transparentize($dark-brand1, 0.7)};
+
+	--accent: #{$dark-accent1};
+	--accent-light: #{lighten($dark-accent1, 20%)};
+	--accent-dark: #{darken($dark-accent1, 20%)};
+	--accent-transparent: #{transparentize($dark-accent1, 0.7)};
+
+	--background: #{$black};
+	--foreground: #{$white};
+	--muted-background: #{transparentize($g100, 0.7)};
+	--muted-foreground: #{$g500};
+	--border: #{$g400};
+
+	--button-bg: #{$dark-brand1};
+	--button-text: #{$white};
+	--button-hover-bg: #{lighten($dark-brand1, 10%)};
+	--button-hover-text: #{$white};
+
+	--selection: #{$dark-accent2};
+
+	--shadow: #{rgba($white, 0.2)};
+}
+
+$customPrimaries: (
+	red: $red,
+	orange: $orange,
+	yellow: $yellow,
+	green: $green,
+	blue: $blue,
+	indigo: $indigo,
+	purple: $purple,
+	pink: $pink,
+);
+
+@each $key, $value in $customPrimaries {
+	html[data-primary="#{$key}"] {
+		--primary: #{$value};
+		--primary-light: #{lighten($value, 20%)};
+		--primary-dark: #{darken($value, 20%)};
+		--primary-transparent: #{transparentize($value, 0.7)};
+	}
+}

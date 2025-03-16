@@ -1,0 +1,114 @@
+@use "../utils/vars" as *;
+
+@mixin border($color) {
+	border: solid #{$border-width} $color;
+}
+
+@mixin colors() {
+	&.color-0 {
+		--color: #{$red};
+	}
+
+	&.color-1 {
+		--color: #{$orange};
+	}
+
+	&.color-2 {
+		--color: #{$yellow};
+	}
+
+	&.color-3 {
+		--color: #{$green};
+	}
+
+	&.color-4 {
+		--color: #{$blue};
+	}
+
+	&.color-5 {
+		--color: #{$indigo};
+	}
+
+	&.color-6 {
+		--color: #{$purple};
+	}
+
+	&.color-7 {
+		--color: #{$pink};
+	}
+}
+
+@mixin dashed-background($color, $opacity, $dark-mode-opacity: $opacity) {
+	&::before {
+		content: "";
+		position: absolute;
+
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		$density: 5;
+		$ratio: 1;
+		$w: 50;
+		$h: 25;
+		$d: sqrt($w * $w + $h * $h);
+		$angle: acos($w / $d);
+
+		$temp: $d/$density;
+		background: repeating-linear-gradient(
+			-$angle,
+			transparent,
+			transparent $temp + px,
+			$color $temp + px,
+			$color $temp * 2 * $ratio + px
+		);
+
+		background-position: 0 0;
+
+		z-index: -1;
+
+		animation: gradient infinite 20s linear both;
+		animation-play-state: paused;
+
+		opacity: $opacity;
+		pointer-events: none;
+
+		transition: 200ms ease-in-out;
+	}
+
+	[data-theme="dark"] & {
+		&::before {
+			opacity: $dark-mode-opacity;
+		}
+	}
+
+	@keyframes gradient {
+		0% {
+			background-position: 0% 0%;
+		}
+		100% {
+			background-position: 300px 0;
+		}
+	}
+}
+
+@mixin subtle-scrollbar {
+	&::-webkit-scrollbar {
+		width: 0.5em;
+		height: 0.5em;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: var(--muted-background);
+		border-radius: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: var(--muted-background);
+	}
+}

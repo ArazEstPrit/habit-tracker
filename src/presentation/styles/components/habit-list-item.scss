@@ -1,0 +1,135 @@
+@use "../base/typography";
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+.habit-list-item {
+	@include dashed-background(var(--color), 0);
+	@include colors();
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+	height: 80px;
+	border-radius: 10px;
+	cursor: pointer;
+	position: relative;
+	padding: 0.5rem 1rem;
+	--color: #{$g200};
+	border: solid 1px var(--color);
+	background-color: rgb(from var(--color) r g b / 0.1);
+
+	gap: 1rem;
+
+	& > *:first-child:not(:has(+ .completed-date)) {
+		margin-right: auto;
+	}
+
+	&.completed {
+		use {
+			--stroke: var(--color);
+		}
+		button:not(:hover),
+		&::before {
+			opacity: 0.3;
+		}
+	}
+
+	&:hover::before,
+	&.active::before {
+		animation-play-state: running;
+	}
+
+	&:not(.completed):hover::before,
+	&:not(.completed).active::before {
+		opacity: 0.1;
+		z-index: -1;
+
+		[data-theme="dark"] & {
+			opacity: 0.05;
+		}
+	}
+
+	.vertical {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+
+		.name {
+			@extend .h5;
+		}
+
+		.description {
+			max-width: 300px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		&.time-info {
+			align-items: flex-end;
+		}
+
+		&.study-info {
+			align-items: center;
+			margin-right: 0.5rem;
+		}
+	}
+
+	.gradual-controls {
+		display: flex;
+		gap: 0rem;
+		margin-right: 8px;
+
+		* {
+			background: none;
+			border: none;
+			outline: none;
+			@extend .h6;
+			color: var(--foreground);
+		}
+
+		input[type="number"] {
+			text-align: right;
+			&::-webkit-inner-spin-button {
+				display: none;
+			}
+		}
+	}
+
+	.complete-button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 6;
+
+		.icon {
+			width: 50px;
+		}
+		&:hover use {
+			--stroke: var(--color);
+		}
+
+		[data-theme="dark"] & {
+			use {
+				--fill: rgb(from var(--color) r g b / 0.5);
+			}
+
+			&:hover use {
+				--stroke: #{$black};
+				--fill: rgb(from var(--color) r g b / 0.8);
+			}
+		}
+	}
+
+	.completed-date {
+		margin-right: auto;
+		margin-left: 1em;
+
+		.label {
+			@extend .small;
+		}
+	}
+}

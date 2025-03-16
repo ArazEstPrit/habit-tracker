@@ -1,0 +1,75 @@
+@use "../base/typography";
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+.topic-info.row {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+}
+
+.future-topics {
+	@include subtle-scrollbar();
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	flex-wrap: wrap;
+
+	width: 300px;
+	max-height: 310px;
+
+	padding-bottom: 0.5rem;
+
+	overflow-x: auto;
+
+	.topic-card {
+		width: 200px;
+		height: 100px;
+
+		border-radius: 10px;
+
+		padding: 0.5rem;
+
+		display: flex;
+
+		flex-direction: column;
+
+		justify-content: space-between;
+
+		background-color: var(--muted-background);
+
+		.title {
+			@extend .h6;
+
+			hyphens: auto;
+			hyphenate-limit-chars: 6 3 2;
+		}
+
+		.row {
+			display: flex;
+			gap: 0.5rem;
+
+			justify-content: space-between;
+			align-items: end;
+		}
+
+		.subtopics {
+			@extend .small;
+		}
+
+		.difficulty {
+			@extend .h6;
+
+			background-color: var(--primary);
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			border-radius: 999px;
+
+			width: 30px;
+			height: 30px;
+		}
+	}
+}

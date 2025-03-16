@@ -1,0 +1,26 @@
+.theme-button {
+	z-index: 10;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+
+	display: flex;
+
+	margin: 20px;
+	padding: 6px;
+	border: none;
+	background: none;
+	cursor: pointer;
+
+	&:hover {
+		outline: none;
+	}
+
+	&:active {
+		background: none;
+	}
+
+	.icon {
+		width: 48px;
+	}
+}

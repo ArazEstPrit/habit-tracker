@@ -1,0 +1,33 @@
+@use "../utils/vars" as *;
+
+.add-habit-button-container {
+	position: absolute;
+	bottom: -26px;
+	right: -60px;
+
+	.add-habit-button {
+		width: 50px;
+		height: 50px;
+
+		outline: none;
+		border: none;
+
+		border-radius: 24px;
+
+		background-color: var(--primary-transparent);
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		cursor: pointer;
+
+		&:hover {
+			background-color: var(--primary);
+		}
+
+		use {
+			--stroke: #{$black} !important;
+		}
+	}
+}
